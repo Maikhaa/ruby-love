@@ -11,22 +11,22 @@ class Game
 	end
 
 	def printRoomMessage
-		  puts @currentRoom.message
-		  getInput
+		puts @currentRoom.message
+		getInput
 	end
 
 	def getInput
 		puts "N,S,E,W?" 
 		input = gets
 		@direction = input.chomp.downcase
-		@key = @direction.to_sym
-		evaluateInput(@currentRoom)
+		@theKey = @direction.to_sym
+		evaluateInput
 	end
 
-	def evaluateInput(currentRoom)
-		if currentRoom.nil? 
+	def evaluateInput
+		if @currentRoom.nil? 
 		  moveFirstRoom		
-	  elsif currentRoom.doors.key? (@key)
+	  elsif @currentRoom.doors.key?(@theKey)
 		  moveNextRoom
 		else
 		  puts "Sorry, there is no exit here."
@@ -40,7 +40,7 @@ class Game
 	end
 
 	def moveNextRoom
-		@currentRoom = @currentRoom.doors.fetch (@key)
+		@currentRoom = @currentRoom.doors.fetch(@theKey)
 		printRoomMessage
 	end
 end
